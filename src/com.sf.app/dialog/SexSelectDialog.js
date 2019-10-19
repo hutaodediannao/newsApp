@@ -1,7 +1,6 @@
 /**
  * Created by zhoujian on 2019/4/9.
  */
-
 import React, {Component} from 'react';
 import {
     StyleSheet,

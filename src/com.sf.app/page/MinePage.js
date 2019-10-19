@@ -8,7 +8,6 @@ import RNExitApp from 'react-native-exit-app';
 import SexSelectDialogModal from "../dialog/SexSelectDialog";
 
 const Item = List.Item;
-
 class Mine extends React.Component {
 
     constructor(props) {
