@@ -94,6 +94,17 @@ class Mine extends React.Component {
                             </View>
                             <View style={styles.line}/>
                             <Item style={styles.item} disabled onPress={() => {
+                                this.props.navigation.navigate('USERPROFILE');
+                            }}>
+                                <View style={styles.itemText}>
+                                    <View style={styles.itemTextLay}>
+                                        <Image style={styles.itemIcon} source={require('../../res/header.png')}/>
+                                        <Text>个人资料</Text>
+                                    </View>
+                                    <Image style={styles.itemIcon} source={require('../../res/go.png')}/>
+                                </View>
+                            </Item>
+                            <Item style={styles.item} disabled onPress={() => {
                                 //服务平台，点击进入webView页面
                                 // this.props.navigation.push('WEB');
                                 this.props.navigation.navigate({

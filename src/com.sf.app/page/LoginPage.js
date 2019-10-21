@@ -10,6 +10,7 @@ import Detail from './DetailPage';
 import ImagePage from './ImageBrowserPage';
 import Setting from './mineChildPage/AppSettingPage';
 import AboutApp from './mineChildPage/AboutPage';
+import UserProfile from "./mineChildPage/UserProfilePage";
 
 class Login extends React.Component {
     constructor(props) {
@@ -170,6 +171,7 @@ const navigationStack = createStackNavigator(
         IMAGE: ImagePage,
         SETTING: Setting,
         ABOUT: AboutApp,
+        USERPROFILE: UserProfile,
     },
     {
         initialRouteName: 'LOGIN',
