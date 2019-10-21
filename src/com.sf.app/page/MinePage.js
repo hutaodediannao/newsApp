@@ -8,6 +8,24 @@ import RNExitApp from 'react-native-exit-app';
 import SexSelectDialogModal from "../dialog/SexSelectDialog";
 
 const Item = List.Item;
+
+//图片选择器
+import ImagePicker from 'react-native-image-picker';
+//图片选择器参数设置
+const options = {
+    title: '请选择图片来源',
+    cancelButtonTitle: '取消',
+    takePhotoButtonTitle: '拍照',
+    chooseFromLibraryButtonTitle: '相册图片',
+    customButtons: [
+        {name: '胡涛', title: '胡涛自定义图片'},
+    ],
+    storageOptions: {
+        skipBackup: true,
+        path: 'images'
+    }
+};
+
 class Mine extends React.Component {
 
     constructor(props) {
@@ -18,6 +36,7 @@ class Mine extends React.Component {
             isShowSexDialog: false,
             nickName: '这个人很懒，未设置昵称',
             sex: 1,//0:表示女的，1：表示男的
+            avatarSource: null,//拍照或者选择的图片
         };
     }
 
@@ -49,7 +68,14 @@ class Mine extends React.Component {
                         <List>
                             <View style={styles.itemHeader}>
                                 <View style={styles.center}>
-                                    <Image style={styles.itemHeaerImg} source={require('../../res/person.jpg')}/>
+                                    <TouchableOpacity onPress={() => {
+                                        //点击头像选择图片或者拍照
+                                        this.choosePic();
+                                    }}>
+                                        <Image
+                                            source={this.state.avatarSource == null ? require('../../res/person.jpg') : this.state.avatarSource}
+                                            style={styles.itemHeaerImg}/>
+                                    </TouchableOpacity>
                                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                         <TouchableOpacity onPress={() => {
                                             this.setState({
@@ -216,6 +242,28 @@ class Mine extends React.Component {
     cancelDialog = () => {
         this.setState({isShowDialog: false});
     };
+
+    //选择照片按钮点击
+    choosePic = () => {
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('用户取消了选择！');
+            } else if (response.error) {
+                alert("ImagePicker发生错误：" + response.error);
+            } else if (response.customButton) {
+                alert("自定义按钮点击：" + response.customButton);
+            } else {
+                let source = {uri: response.uri};
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                this.setState({
+                    avatarSource: source
+                });
+            }
+        });
+    }
 }
 
 const styles = StyleSheet.create({
