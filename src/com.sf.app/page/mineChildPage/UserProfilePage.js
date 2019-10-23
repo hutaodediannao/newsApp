@@ -4,7 +4,7 @@ import React from 'react';
 import {List, Provider, Toast} from '@ant-design/react-native';
 import HeaderView from '../../widget/Header';
 import MyPicker from 'react-native-picker';
-import MuiltSelectModal from "../../dialog/MuiltSelectDialog";
+import MuiltSelectModal, {array} from "../../dialog/MuiltSelectDialog";
 import SexSelectDialogModal from "../../dialog/SexSelectDialog";
 
 const Item = List.Item;
@@ -201,7 +201,7 @@ export default class UserProfile extends React.Component {
 
                         <Item style={styles.item} disabled onPress={() => {
 
-
+ 
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
@@ -224,7 +224,7 @@ export default class UserProfile extends React.Component {
                                     <Text>爱好</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>{this.state.love}</Text>
+                                    <Text style={{color: 'gray'}}>{array}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>

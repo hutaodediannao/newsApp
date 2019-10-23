@@ -12,12 +12,8 @@ import {
     ToastAndroid
 } from 'react-native';
 import {Checkbox, List} from "@ant-design/react-native";
-import {Button} from "react-native-vector-icons/AntDesign";
-import {OnChangeParams} from "@ant-design/react-native/lib/checkbox/PropsType";
-import {bool} from "prop-types";
 
-const Item = List.Item;
-const array = [];
+export const array = [];
 export default class MuiltSelectModal extends Component {
 
     constructor(props) {
@@ -65,10 +61,7 @@ export default class MuiltSelectModal extends Component {
                                             let isCheck = OnChangeParams.target.checked;
                                             let p = array.includes('篮球');
                                             if (isCheck) {
-                                                if (!p) {
-                                                    array.push('篮球');
-                                                    this.setState({})
-                                                }
+                                                if (!p) array.push('篮球');
                                             } else {
                                                 if (p) array.splice(array.findIndex(item => item == '篮球'), 1);
                                             }
@@ -84,17 +77,18 @@ export default class MuiltSelectModal extends Component {
                                     <View/>
                                     <Text>游泳</Text>
                                     <Checkbox
-                                        handleClick={() => {
-                                            array.push('游泳');
-                                        }}
+                                        checked={this.state.youYongCheckStatus}
                                         onChange={(OnChangeParams) => {
                                             let isCheck = OnChangeParams.target.checked;
+                                            let p = array.includes('游泳');
                                             if (isCheck) {
-                                                array.push('游泳');
-                                                ToastAndroid.show('游泳添加成功', ToastAndroid.SHORT);
+                                                if (!p) array.push('游泳');
                                             } else {
-
+                                                if (p) array.splice(array.findIndex(item => item == '游泳'), 1);
                                             }
+                                            this.setState({
+                                                youYongCheckStatus: isCheck
+                                            })
                                         }}/>
                                 </View>
                             </TouchableOpacity>
@@ -103,17 +97,18 @@ export default class MuiltSelectModal extends Component {
                                     <View/>
                                     <Text>爬山</Text>
                                     <Checkbox
-                                        handleClick={() => {
-                                            array.push('爬山');
-                                        }}
+                                        checked={this.state.paShanCheckStatus}
                                         onChange={(OnChangeParams) => {
                                             let isCheck = OnChangeParams.target.checked;
+                                            let p = array.includes('爬山');
                                             if (isCheck) {
-                                                array.push('爬山');
-                                                ToastAndroid.show('爬山添加成功', ToastAndroid.SHORT);
+                                                if (!p) array.push('爬山');
                                             } else {
-
+                                                if (p) array.splice(array.findIndex(item => item == '爬山'), 1);
                                             }
+                                            this.setState({
+                                                paShanCheckStatus: isCheck
+                                            })
                                         }}/>
                                 </View>
                             </TouchableOpacity>
@@ -122,17 +117,18 @@ export default class MuiltSelectModal extends Component {
                                     <View/>
                                     <Text>开车</Text>
                                     <Checkbox
-                                        handleClick={() => {
-                                            array.push('开车');
-                                        }}
+                                        checked={this.state.driverCheckStatus}
                                         onChange={(OnChangeParams) => {
                                             let isCheck = OnChangeParams.target.checked;
+                                            let p = array.includes('开车');
                                             if (isCheck) {
-                                                array.push('开车');
-                                                ToastAndroid.show('开车添加成功', ToastAndroid.SHORT);
+                                                if (!p) array.push('开车');
                                             } else {
-
+                                                if (p) array.splice(array.findIndex(item => item == '开车'), 1);
                                             }
+                                            this.setState({
+                                                driverCheckStatus: isCheck
+                                            })
                                         }}/>
                                 </View>
                             </TouchableOpacity>
@@ -149,16 +145,6 @@ export default class MuiltSelectModal extends Component {
 
             </Modal>
         );
-    }
-
-    onChangeValue = (OnChangeParams) => {
-        let isCheck = OnChangeParams.target.checked;
-
-        // if (array.indexOf(OnChangeParams)) {
-        //     ToastAndroid.show('包含' + OnChangeParams, ToastAndroid.SHORT);
-        // } else {
-        //     ToastAndroid.show('不包含' + OnChangeParams, ToastAndroid.SHORT);
-        // }
     }
 }
 
