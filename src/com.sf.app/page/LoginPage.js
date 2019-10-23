@@ -1,4 +1,4 @@
-import {View, Text, ToastAndroid, Button, StyleSheet, TextInput, AsyncStorage} from 'react-native';
+import {View, Text, ToastAndroid, Button, StyleSheet, TextInput, AsyncStorage, Image} from 'react-native';
 import React from 'react';
 import HeaderView from '../widget/Header';
 import {createAppContainer, NavigationActions, StackActions} from 'react-navigation';
@@ -42,6 +42,7 @@ class Login extends React.Component {
             />
             {
                 this.state.isShowLoading == false ? <View style={styles.loginContainer}>
+                    <Image style={styles.logoStyle} source={require('../../res/app_icon.png')}/>
                         <View style={styles.loginLay}>
                             <Text style={styles.text}>用户名:</Text>
                             <TextInput style={styles.userName}
@@ -125,6 +126,11 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    logoStyle: {
+        width: 50,
+        height: 50,
+        marginBottom: 50,
     },
     loadingLay: {
         justifyContent: 'center',

@@ -1,8 +1,11 @@
-import {View, Text, ScrollView, Image, StyleSheet} from 'react-native';
+import {View, Text, ScrollView, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 import {List, Provider, Toast} from '@ant-design/react-native';
 import HeaderView from '../../widget/Header';
+import MyPicker from 'react-native-picker';
+import MuiltSelectModal from "../../dialog/MuiltSelectDialog";
+import SexSelectDialogModal from "../../dialog/SexSelectDialog";
 
 const Item = List.Item;
 
@@ -10,6 +13,20 @@ const Item = List.Item;
  * 个人资料页面
  */
 export default class UserProfile extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '这个家伙很懒，暂无昵称',
+            sex: '男',
+            birthday: '1990-12-01',
+            city: '湖北省黄冈市',
+            rank: 'A级',
+            star: '处女座',
+            love: '篮球、美女、电影、爬山',
+            isShowLoveListDialog: false,
+        }
+    }
 
     render() {
         return (<View style={styles.body}>
@@ -20,7 +37,10 @@ export default class UserProfile extends React.Component {
                         isShowLeftIcon={true}
                         isShowRightText={true}
                         rightContent={'保存'}
-                        leftClick={() => this.props.navigation.goBack()}
+                        leftClick={() => {
+                            MyPicker.hide();
+                            this.props.navigation.goBack()
+                        }}
                         rightClick={() => {
 
 
@@ -34,30 +54,48 @@ export default class UserProfile extends React.Component {
                     showsVerticalScrollIndicator={false}>
                     <List>
                         <Item style={styles.item} disabled onPress={() => {
-
-
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
                                     <Text>姓名</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>胡涛</Text>
+                                    <Text style={{color: 'gray'}}>{this.state.name}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
                         </Item>
 
                         <Item style={styles.item} disabled onPress={() => {
-
-
+                            let data = [];
+                            data.push('男');
+                            data.push('女');
+                            MyPicker.init(
+                                {
+                                    pickerData: data,
+                                    selectedValue: [0, 1],
+                                    pickerTitleText: '性别选择',
+                                    pickerConfirmBtnText: '提交',
+                                    pickerCancelBtnText: '取消',
+                                    onPickerConfirm: data => {
+                                        this.setState({sex: data})
+                                    },
+                                    onPickerCancel: data => {
+                                        console.log(data);
+                                    },
+                                    onPickerSelect: data => {
+                                        console.log(data);
+                                    }
+                                }
+                            );
+                            MyPicker.show();
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
                                     <Text>性别</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>男</Text>
+                                    <Text style={{color: 'gray'}}>{this.state.sex}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
@@ -72,37 +110,90 @@ export default class UserProfile extends React.Component {
                                     <Text>出生日期</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>1988-12-25</Text>
+                                    <Text style={{color: 'gray'}}>{this.state.birthday}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
                         </Item>
 
                         <Item style={styles.item} disabled onPress={() => {
-
-
+                            let data = [
+                                {
+                                    '湖北省': [{'黄冈市': ['蕲春县', '罗田县', '武穴市', '英山县']},
+                                        {'武汉市': ['汉口', '武昌', '汉阳', '武义']},
+                                        {'荆门市': ['东宝区', '掇刀区', '宝山区']}]
+                                },
+                                {
+                                    '江西省': [{'九江市': ['修水县', '某某县1', '某某县2', '某某县3']},
+                                        {'南昌市': ['赣州', '南江']},
+                                        {'江南市': ['小小县1', '小小县2', '小小县3', '小小县4', '小小县5']}
+                                    ]
+                                },
+                            ];
+                            MyPicker.init(
+                                {
+                                    pickerData: data,
+                                    selectedValue: [1],
+                                    pickerTitleText: '级别选择',
+                                    pickerConfirmBtnText: '提交',
+                                    pickerCancelBtnText: '取消',
+                                    pickerBg: [0, 10, 0, 0],
+                                    onPickerConfirm: data => {
+                                        this.setState({city: data})
+                                    },
+                                    onPickerCancel: data => {
+                                        console.log(data);
+                                    },
+                                    onPickerSelect: data => {
+                                        console.log(data);
+                                    }
+                                }
+                            );
+                            MyPicker.show();
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
                                     <Text>地址</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>湖北省黄冈市</Text>
+                                    <Text style={{color: 'gray'}}>{this.state.city}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
                         </Item>
 
                         <Item style={styles.item} disabled onPress={() => {
-
-
+                            let data = [];
+                            data.push('A级');
+                            data.push('B级');
+                            data.push('C级');
+                            data.push('D级');
+                            MyPicker.init(
+                                {
+                                    pickerData: data,
+                                    selectedValue: [1],
+                                    pickerTitleText: '级别选择',
+                                    pickerConfirmBtnText: '提交',
+                                    pickerCancelBtnText: '取消',
+                                    onPickerConfirm: data => {
+                                        this.setState({rank: data})
+                                    },
+                                    onPickerCancel: data => {
+                                        console.log(data);
+                                    },
+                                    onPickerSelect: data => {
+                                        console.log(data);
+                                    }
+                                }
+                            );
+                            MyPicker.show();
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
                                     <Text>级别</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>A级</Text>
+                                    <Text style={{color: 'gray'}}>{this.state.rank}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
@@ -117,31 +208,50 @@ export default class UserProfile extends React.Component {
                                     <Text>星座</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>处女座</Text>
+                                    <Text style={{color: 'gray'}}>{this.state.star}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
                         </Item>
 
                         <Item style={styles.item} disabled onPress={() => {
-
-
+                            this.setState({
+                                isShowLoveListDialog: !this.state.isShowLoveListDialog
+                            });
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
                                     <Text>爱好</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>篮球、书法、代码</Text>
+                                    <Text style={{color: 'gray'}}>{this.state.love}</Text>
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
                         </Item>
-
                     </List>
                 </ScrollView>
+
+                <MuiltSelectModal
+                    content='选择爱好'
+                    cancel={this.dimissSelectDialog}
+                    confirm={this.confrimSelectArray}
+                    visible={this.state.isShowLoveListDialog}/>
             </Provider>
         </View>);
+    }
+
+    dimissSelectDialog = () => {
+        this.setState({
+            isShowLoveListDialog: false
+        });
+    }
+
+    confrimSelectArray = (arrayValue) => {
+
+
+
+
     }
 }
 
