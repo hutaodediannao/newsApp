@@ -6,6 +6,8 @@ import HeaderView from '../../widget/Header';
 import MyPicker from 'react-native-picker';
 import MuiltSelectModal, {array} from "../../dialog/MuiltSelectDialog";
 import SexSelectDialogModal from "../../dialog/SexSelectDialog";
+import DateSelectDialogModal from "../../dialog/DateSelectDialog";
+import DatePicker from "react-native-datepicker";
 
 const Item = List.Item;
 
@@ -23,9 +25,11 @@ export default class UserProfile extends React.Component {
             city: '湖北省黄冈市',
             rank: 'A级',
             star: '处女座',
+            date: '',
             love: '篮球、美女、电影、爬山',
             isShowLoveListDialog: false,
-        }
+            isShowBirthdayDialog: false,
+        };
     }
 
     render() {
@@ -102,15 +106,48 @@ export default class UserProfile extends React.Component {
                         </Item>
 
                         <Item style={styles.item} disabled onPress={() => {
-
-
+                            this.setState({
+                                isShowBirthdayDialog: true
+                            })
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
                                     <Text>出生日期</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: 'gray'}}>{this.state.birthday}</Text>
+                                    {/*<Text style={{color: 'gray'}}>{this.state.birthday}</Text>*/}
+
+
+                                    <DatePicker
+                                        style={{width:80}}
+                                        date={this.state.date}
+                                        mode="date"
+                                        showIcon={false}
+                                        placeholder="请选择日期"
+                                        format="YYYY-MM-DD"
+                                        minDate="1900-12-01"
+                                        maxDate="2025-12-01"
+                                        confirmBtnText="Confirm"
+                                        // cancelBtnText="Cancel"
+                                        customStyles={{
+                                            dateIcon: {
+                                                position: 'absolute',
+                                                left: 0,
+                                                top: 4,
+                                                marginLeft: 0
+                                            },
+                                            dateInput: {
+                                                marginLeft: 0,
+                                                borderColor:'transparent'
+                                            }
+                                            // ... You can check the source to find the other keys.
+                                            ,
+                                        }}
+                                        onDateChange={(date) => {
+                                            this.setState({date: date})
+                                        }}
+                                    />
+
                                     <Image style={styles.itemIcon} source={require('../../../res/go.png')}/>
                                 </View>
                             </View>
@@ -201,7 +238,7 @@ export default class UserProfile extends React.Component {
 
                         <Item style={styles.item} disabled onPress={() => {
 
- 
+
                         }}>
                             <View style={styles.itemText}>
                                 <View style={styles.itemTextLay}>
@@ -237,6 +274,9 @@ export default class UserProfile extends React.Component {
                     cancel={this.dimissSelectDialog}
                     confirm={this.confrimSelectArray}
                     visible={this.state.isShowLoveListDialog}/>
+
+                {/*<DateSelectDialogModal*/}
+                {/*    visible={this.state.isShowBirthdayDialog}/>*/}
             </Provider>
         </View>);
     }
@@ -248,8 +288,6 @@ export default class UserProfile extends React.Component {
     }
 
     confrimSelectArray = (arrayValue) => {
-
-
 
 
     }
