@@ -6,7 +6,6 @@ import HeaderView from '../../widget/Header';
 import MyPicker from 'react-native-picker';
 import MuiltSelectModal, {array} from "../../dialog/MuiltSelectDialog";
 import SexSelectDialogModal from "../../dialog/SexSelectDialog";
-import DateSelectDialogModal from "../../dialog/DateSelectDialog";
 import DatePicker from "react-native-datepicker";
 
 const Item = List.Item;
@@ -116,8 +115,6 @@ export default class UserProfile extends React.Component {
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                     {/*<Text style={{color: 'gray'}}>{this.state.birthday}</Text>*/}
-
-
                                     <DatePicker
                                         style={{width:80}}
                                         date={this.state.date}
@@ -141,7 +138,6 @@ export default class UserProfile extends React.Component {
                                                 borderColor:'transparent'
                                             }
                                             // ... You can check the source to find the other keys.
-                                            ,
                                         }}
                                         onDateChange={(date) => {
                                             this.setState({date: date})
