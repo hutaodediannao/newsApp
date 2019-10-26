@@ -1,14 +1,11 @@
-import {View, Text, ScrollView, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, Image, StyleSheet} from 'react-native';
 import React from 'react';
 
-import {List, Provider, Toast} from '@ant-design/react-native';
+import {List, Provider} from '@ant-design/react-native';
 import HeaderView from '../../widget/Header';
 import MyPicker from 'react-native-picker';
 import MuiltSelectModal, {array} from "../../dialog/MuiltSelectDialog";
-import SexSelectDialogModal from "../../dialog/SexSelectDialog";
 import DatePicker from "react-native-datepicker";
-
-const Item = List.Item;
 
 /**
  * 个人资料页面
@@ -288,6 +285,8 @@ export default class UserProfile extends React.Component {
 
     }
 }
+
+const Item = List.Item;
 
 const styles = StyleSheet.create({
     body: {
